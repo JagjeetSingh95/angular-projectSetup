@@ -1,0 +1,126 @@
+<div class="page-layout blank p-24" fusePerfectScrollbar>
+
+  <!-- HEADER -->
+  <div>
+
+    <div class="text-left">
+      <span class="mat-headline">New Stages</span>
+    </div>
+    <div class="text-right">
+      <mat-button-toggle-group #group="matButtonToggleGroup">
+        <mat-button-toggle value="left">
+          <mat-icon>clear</mat-icon> Cancel
+        </mat-button-toggle>
+        <mat-button-toggle value="center">
+          <mat-icon>discription</mat-icon> Save & Close
+        </mat-button-toggle>
+        <mat-button-toggle value="right">
+          <mat-icon>done</mat-icon> Apply
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+
+    </div>
+
+  </div>
+  <br />
+  <!-- / HEADER -->
+  <!-- CONTENT -->
+  <div class="table">
+    <div class="row">
+      <div class="cell">
+        <div class="table">
+          <div class="row">
+            <div class="cell">
+              <!---->
+
+
+              <div class="example-container">
+
+                <mat-form-field class="width">
+                  <input matInput placeholder="Name *" value="">
+                </mat-form-field>
+              </div>
+
+
+              <br /><br />
+
+
+              <div class="example-container">
+                <mat-form-field class="width">
+                  <textarea matInput placeholder="Description"></textarea>
+                </mat-form-field>
+              </div>
+
+
+
+
+
+
+            
+             
+
+
+
+
+
+
+
+
+              <!---->
+            </div>
+            <!----><!----><!---->
+
+          </div>
+
+
+
+        </div>
+
+      </div>
+      <div class="cell">
+        <mat-card>
+
+
+          <div class="example-container">
+
+            <mat-form-field class="width">
+              <input matInput placeholder="Weight *" value="">
+            </mat-form-field>
+          </div>
+          <br />
+          <div class="example-full-width">
+            <mat-form-field class="widths">
+              <mat-select placeholder="Category">
+                <mat-option value="">Uncategory</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <br />
+          <div class="example-container">
+            <span class="mat-subheading-1">Published</span>
+            <br />
+            <mat-button-toggle-group #group="matButtonToggleGroup">
+              <mat-button-toggle value="left">
+                No
+              </mat-button-toggle>
+              <mat-button-toggle value="right">
+                Yes
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div><br />
+
+
+                <div class="example-container">
+                  <mat-form-field class="width">
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi="true" #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+            
+        </mat-card>
+      </div>
+    </div>
+
+
+  </div>

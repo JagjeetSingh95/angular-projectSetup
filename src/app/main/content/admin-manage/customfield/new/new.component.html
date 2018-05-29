@@ -1,0 +1,213 @@
+<div class="page-layout blank p-24" fusePerfectScrollbar>
+
+  <!-- HEADER -->
+  <div>
+
+    <div class="text-left">
+      <span class="mat-headline">New Custom Fields</span>
+    </div>
+    <div class="text-right">
+      <mat-button-toggle-group #group="matButtonToggleGroup">
+        <mat-button-toggle value="left">
+          <mat-icon>clear</mat-icon> Cancel
+        </mat-button-toggle>
+        <mat-button-toggle value="center">
+          <mat-icon>discription</mat-icon> Save & Close
+        </mat-button-toggle>
+        <mat-button-toggle value="right">
+          <mat-icon>done</mat-icon> Apply
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+
+    </div>
+
+  </div>
+  <br />
+  <!-- / HEADER -->
+  <!-- CONTENT -->
+  <div class="table">
+    <div class="row">
+      <mat-card>
+      <div class="cell">
+        <div class="table">
+          <form name="form" (ngSubmit)="addcustom()" #f="ngForm" novalidate>
+            <div class="row">
+              <div class="cell">
+                <div>
+                  <mat-form-field class="width">
+                    <input matInput placeholder="Label" value="">
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field class="width">
+                    <mat-select placeholder="Object">
+                      <mat-option value="">Contact</mat-option>
+                      <mat-option value="">Company</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field class="width">
+                    <mat-select placeholder="Data type">
+                      <mat-option value="">Boolean</mat-option>
+                      <mat-option value="">Text</mat-option>
+                      <mat-option value="">Number</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!----><!----><!----><!---->
+              <div class="cell">
+                <!---->
+                <mat-form-field class="width">
+                  <input matInput placeholder="Alias" value="">
+                </mat-form-field>
+                <div>
+                  <mat-form-field class="width">
+                    <mat-select placeholder="Group">
+                      <mat-option value="">Core</mat-option>
+                      <mat-option value="">Socail</mat-option>
+                      <mat-option value="">Personal</mat-option>
+                      <mat-option value="">Professional</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <mat-form-field class="width">
+                  <input matInput placeholder="Default Value" value="">
+                </mat-form-field>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      </mat-card>
+
+      <div class="cell">
+        <mat-card>
+          <div class="table">
+            <div class="row">
+              <div class="cell">
+                <div >
+                  <mat-form-field class="widths">
+                    <mat-select placeholder="Order">
+                      <mat-option value="">Title</mat-option>
+                      <mat-option value="">Address 1</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <div class="cell">
+                    <div>
+                      <span class="mat-subheading-1">Published</span>
+                      <br />
+                      <mat-button-toggle-group #group="matButtonToggleGroup">
+                        <mat-button-toggle value="left">
+                          No
+                        </mat-button-toggle>
+                        <mat-button-toggle value="right">
+                          Yes
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="cell">
+                    <div>
+                      <span class="mat-subheading-1">
+                        Required
+                      </span>
+                      <br />
+                      <mat-button-toggle-group #group="matButtonToggleGroup">
+                        <mat-button-toggle value="left">
+                          No
+                        </mat-button-toggle>
+                        <mat-button-toggle value="right">
+                          Yes
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                  </div>
+                  <br />
+                </div>
+                <br />
+                <div class="row">
+                  <div class="cell">
+                    <div>
+                      <span class="mat-subheading-1">Visible on forms</span>
+                      <br />
+                      <mat-button-toggle-group #group="matButtonToggleGroup">
+                        <mat-button-toggle value="left">
+                          No
+                        </mat-button-toggle>
+                        <mat-button-toggle value="right">
+                          Yes
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                  </div>  <br />
+                  <div class="cell">
+                    <div>
+                      <span class="mat-subheading-1">Visible on short forms</span>
+                      <br />
+                      <mat-button-toggle-group #group="matButtonToggleGroup">
+                        <mat-button-toggle value="left">
+                          No
+                        </mat-button-toggle>
+                        <mat-button-toggle value="right">
+                          Yes
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                  </div>  <br />
+                </div>
+                <br />
+                <div class="row">
+                  <div class="cell">
+                    <div>
+                      <span class="mat-subheading-1">Available for segments</span>
+                      <br />
+                      <mat-button-toggle-group #group="matButtonToggleGroup">
+                        <mat-button-toggle value="left">
+                          No
+                        </mat-button-toggle>
+                        <mat-button-toggle value="right">
+                          Yes
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                  </div>  <br />
+                  <div class="cell">
+                    <div>
+                      <span class="mat-subheading-1">Publicly updatable</span>
+                      <br />
+                      <mat-button-toggle-group #group="matButtonToggleGroup">
+                        <mat-button-toggle value="left">
+                          No
+                        </mat-button-toggle>
+                        <mat-button-toggle value="right">
+                          Yes
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                  </div>  <br />
+                </div>
+                <br />
+                <div>
+                  <span class="mat-subheading-1">Is Unique Identifier</span>
+                  <br />
+                  <mat-button-toggle-group #group="matButtonToggleGroup">
+                    <mat-button-toggle value="left">
+                      No
+                    </mat-button-toggle>
+                    <mat-button-toggle value="right">
+                      Yes
+                    </mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>

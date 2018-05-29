@@ -1,0 +1,110 @@
+<mat-table #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+
+  <!-- Checkbox Column -->
+  <ng-container cdkColumnDef="checkbox">
+    <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+    <mat-cell *cdkCellDef="let lead">
+      <mat-checkbox [(ngModel)]="checkboxes[lead.id]" (ngModelChange)="onSelectedChange(lead.id)"
+                    (click)="$event.stopPropagation()">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+
+
+  <!-- CustomerName Column -->
+  <ng-container cdkColumnDef="CustomerName">
+    <mat-header-cell *cdkHeaderCellDef>Customer Name</mat-header-cell>
+    <mat-cell *cdkCellDef="let lead">
+      <p class="text-truncate font-weight-600">{{lead.firstname}} {{lead.lastname}}</p>
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- CommissionType Column -->
+  <ng-container cdkColumnDef="position">
+    <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-sm>Position</mat-header-cell>
+    <mat-cell *cdkCellDef="let lead" fxHide fxShow.gt-sm>
+      <p class="email text-truncate">{{lead.position}}</p>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Status Column -->
+  <ng-container cdkColumnDef="email">
+    <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-md>Email</mat-header-cell>
+    <mat-cell *cdkCellDef="let lead" fxHide fxShow.gt-md>
+      <p class="phone text-truncate">{{lead.email}}</p>
+    </mat-cell>
+  </ng-container>
+
+  <!-- LeadSource Column -->
+  <ng-container cdkColumnDef="mobile">
+    <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-lg>Mobile Number</mat-header-cell>
+    <mat-cell *cdkCellDef="let lead" fxHide fxShow.gt-lg>
+      <p class="job-title text-truncate">{{lead.mobile}}</p>
+    </mat-cell>
+  </ng-container>
+
+  <!-- DateEntered Column -->
+  <ng-container cdkColumnDef="city">
+    <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-lg>City</mat-header-cell>
+    <mat-cell *cdkCellDef="let lead" fxHide fxShow.gt-lg>
+      <p class="company text-truncate">{{lead.city}} </p>
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- City Column -->
+  <ng-container cdkColumnDef="state">
+    <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-sm>State</mat-header-cell>
+    <mat-cell *cdkCellDef="let lead" fxHide fxShow.gt-sm>
+      <p class="email text-truncate">{{lead.state}}</p>
+    </mat-cell>
+  </ng-container>
+
+  <!-- id Column -->
+  <ng-container cdkColumnDef="id">
+    <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-lg>id</mat-header-cell>
+    <mat-cell *cdkCellDef="let lead" fxHide fxShow.gt-lg>
+      <p class="company text-truncate">
+    {{lead.id}}
+      </p>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Buttons Column -->
+  <ng-container cdkColumnDef="buttons">
+    <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+    <mat-cell *cdkCellDef="let lead">
+      <div fxFlex="row" fxLayoutAlign="end center">
+        <button mat-icon-button (click)="$event.stopPropagation();toggleStar(lead.id)" aria-label="Toggle star">
+          <mat-icon *ngIf="user.starred.includes(lead.id)">star</mat-icon>
+          <mat-icon *ngIf="!user.starred.includes(lead.id)">star_outline</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                (click)="$event.stopPropagation();">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #moreMenu="matMenu">
+          <button mat-menu-item aria-label="remove">
+            <mat-icon>mode_edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item aria-label="remove" (click)="deleteContact(lead)">
+            <mat-icon>delete</mat-icon>
+            <span>Remove</span>
+          </button>
+        </mat-menu>
+      </div>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *cdkRowDef="let lead; columns: displayedColumns;"
+           class="lead"
+           [routerLink]="'/potentialclient/customerinfo/'+lead.id"
+           [ngClass]="{'mat-light-blue-50-bg':checkboxes[lead.id]}"
+           matRipple
+           [@animate]="{value:'*',params:{y:'100%'}}">
+  </mat-row>
+</mat-table>
+

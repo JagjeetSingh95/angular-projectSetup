@@ -1,0 +1,62 @@
+.table {
+  display: flex;
+}
+
+.row {
+  flex: 1;
+  display: flex;
+}
+
+.row:first-of-type {
+  flex-flow: wrap;
+}
+
+
+.row div {
+  flex: 1;
+}
+
+
+.example-button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 100%;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.width {
+  width: 80%;
+}
+.widths {
+  width: 80%;
+}
+
+div.container {
+  display: flex;
+}
+
+
+div.container > div.three {
+  flex: 3 3 calc(15em + 20px); /** 20px is the missing margin of the two missing boxes */
+}
+
+mat-button-toggle {
+  border: 1px rgba(0,0,0,0) solid !important;
+  padding: 0 5px !important;
+  z-index: 3 !important;
+}
+
+
+.mat-button-toggle-checked {
+  box-shadow: 0 0 30px #000 !important;
+  background-color: #fff !important;
+}

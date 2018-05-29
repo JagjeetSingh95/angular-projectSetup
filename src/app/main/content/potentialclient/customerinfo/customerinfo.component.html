@@ -1,0 +1,259 @@
+<div id="product" class="page-layout carded fullwidth" fusePerfectScrollbar>
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg mat-accent-bg"></div>
+  <!-- / TOP BACKGROUND -->
+  <!-- CENTER -->
+  <div class="center">
+    <!-- HEADER -->
+    <div class="header white-fg" fxLayout="row" fxLayoutAlign="space-between center">
+      <!-- APP TITLE -->
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <button class="mr-0 mr-sm-16" mat-icon-button [routerLink]="'/potentialclient'">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div fxLayout="column" fxLayoutAlign="start start"
+             *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          <div class="h2" *ngIf="pageType ==='edit'">
+
+          </div>
+          <div class="h2" *ngIf="pageType ==='new'">
+            Add New Customer
+          </div>
+          <div class="subtitle secondary-text">
+            <span>Customer Info</span>
+          </div>
+        </div>
+      </div>
+      <!-- / APP TITLE -->
+      <button mat-raised-button
+              class="add-leadfield-button mat-white-bg mt-16 mt-sm-0"
+              [disabled]="leadForm.invalid"
+              *ngIf="pageType ==='new'" (click)="addLead()">
+        <span>ADD</span>
+      </button>
+      <button mat-raised-button
+              class="save-leadfield-button mat-white-bg mt-16 mt-sm-0"
+              [disabled]="leadForm.invalid || leadForm.pristine"
+              *ngIf="pageType ==='edit'" (click)="saveLead()">
+        <span>SAVE</span>
+      </button>
+    </div>
+    <!-- / HEADER -->
+    <mat-card>
+      <form name="leadForm" method="POST" [(formGroup)]="leadForm" novalidate>
+        <div fxLayout="row" fxLayout.xs="column" fxFlexFill>
+          <div fxFlex="25">
+            <mat-form-field class="width">
+              <input matInput placeholder="First Name" name="firstname" formControlName="firstname" required>
+              <mat-error *ngIf="leadFormErrors.firstname.required">
+                First Name is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="width">
+              <input matInput placeholder="Email" type="email" name="email" formControlName="email" required>
+              <mat-error *ngIf="leadFormErrors.email.required">
+                Email is required
+              </mat-error>
+              <mat-error *ngIf="!leadFormErrors.email.required && leadFormErrors.email.email">
+                Please enter a valid email address
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="width">
+              <input matInput placeholder="Address 2" name="address2" formControlName="address2" >
+            </mat-form-field>
+          </div>
+          <div fxFlex="25">
+            <mat-form-field class="width">
+              <input matInput placeholder="Last Name" name="lastname" formControlName="lastname" required>
+            </mat-form-field>
+            <mat-form-field class="width">
+              <input matInput placeholder="Phone Number" type="number" name="phone" formControlName="phone" required>
+            </mat-form-field>
+            <mat-form-field class="width">
+              <input matInput placeholder="City" name="city" formControlName="city" >
+            </mat-form-field>
+          </div>
+          <div fxFlex="25">
+            <mat-form-field class="width">
+              <input matInput placeholder="Company" formControlName="company" required>
+            </mat-form-field>
+            <mat-form-field class="width">
+              <input matInput placeholder="Mobile Number" type="number" name="mobile" formControlName="mobile">
+            </mat-form-field>
+            <mat-form-field class="width">
+              <input matInput placeholder="State" name="state" formControlName="state">
+            </mat-form-field>
+          </div>
+          <div fxFlex="25">
+            <mat-form-field class="width">
+              <input matInput placeholder="Position" name="position" formControlName="position">
+            </mat-form-field>
+            <mat-form-field class="width">
+              <input matInput placeholder="Address 1" name="address1" formControlName="address1">
+            </mat-form-field>
+            <mat-form-field class="width">
+              <input matInput placeholder="Zip Code" name="zipCode" formControlName="zipCode">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div *ngFor="let leadfield of leadfields; let i = index">
+          <div *ngIf="i % 4 === 0">
+            <div fxLayout="row" fxLayout.xs="column" fxFlexFill>
+              <div fxFlex="25" *ngIf="leadfields[i]">
+                <div [ngSwitch]="leadfields[i].type">
+                  <div *ngSwitchCase="'Text'">
+                    <mat-form-field class="width">
+                      <input matInput placeholder="{{leadfields[i].label}}" *ngIf="leadfields[i].isRequired" formControlName="{{leadfields[i].alias}}">
+                   
+                    </mat-form-field>
+                  </div>
+                  <div *ngSwitchCase="'Select'">
+                    <mat-form-field class="width">
+                      <mat-select placeholder="{{leadfields[i].label}}" *ngIf="leadfields[i].isRequired" formControlName="{{leadfields[i].alias}}">
+                        <mat-option *ngFor="let option of leadfields[i].properties" value="{{option.value}}">{{option.label}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div *ngSwitchCase="'Date'">
+                    <mat-form-field class="width">
+                      <input matInput [matDatepicker]="picker" *ngIf="leadfields[i].isRequired" formControlName="{{leadfields[i].alias}}" placeholder="{{leadfields[i].label}}">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div *ngSwitchCase="'Boolean'">
+                    <span class="mat-subheading-1">{{leadfields[i].label}}</span><br />
+                    <mat-button-toggle-group #group="matButtonToggleGroup" *ngIf="leadfields[i].isRequired" formControlName="{{leadfields[i].alias}}">
+                      <mat-button-toggle value="left">
+                        No
+                      </mat-button-toggle>
+                      <mat-button-toggle value="right">
+                        Yes
+                      </mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                  <div *ngSwitchCase="'TriState'">
+                    <mat-checkbox *ngIf="leadfields[i].isRequired" formControlName="{{leadfields[i].alias}}">{{leadfields[i].label}}</mat-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="25" *ngIf="leadfields[i+1]">
+                <div [ngSwitch]="leadfields[i+1].type">
+                  <div *ngSwitchCase="'Text'">
+                    <mat-form-field class="width">
+                      <input matInput placeholder="{{leadfields[i+1].label}}" *ngIf="leadfields[i+1].isRequired" formControlName="{{leadfields[i+1].alias}}">
+                    </mat-form-field>
+                  </div>
+                  <div *ngSwitchCase="'Select'">
+                    <mat-form-field class="width">
+                      <mat-select placeholder="{{leadfields[i+1].label}}" *ngIf="leadfields[i+1].isRequired" formControlName="{{leadfields[i+1].alias}}">
+                        <mat-option *ngFor="let option of leadfields[i+1].properties" value="{{option.value}}">{{option.label}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div *ngSwitchCase="'Date'">
+                    <mat-form-field class="width">
+                      <input matInput [matDatepicker]="picker" *ngIf="leadfields[i+1].isRequired" formControlName="{{leadfields[i+1].alias}}" placeholder="{{leadfields[i+1].label}}">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div *ngSwitchCase="'Boolean'">
+                    <span class="mat-subheading-1">{{leadfields[i+1].label}}</span><br />
+                    <mat-button-toggle-group #group="matButtonToggleGroup" *ngIf="leadfields[i+1].isRequired" formControlName="{{leadfields[i+1].alias}}">
+                      <mat-button-toggle value="left">
+                        No
+                      </mat-button-toggle>
+                      <mat-button-toggle value="right">
+                        Yes
+                      </mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                  <div *ngSwitchCase="'TriState'">
+                    <mat-checkbox *ngIf="leadfields[i+1].isRequired" formControlName="{{leadfields[i+1].alias}}">{{leadfields[i+1].label}}</mat-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="25" *ngIf="leadfields[i+2]">
+                <div [ngSwitch]="leadfields[i+2].type">
+                  <div *ngSwitchCase="'Text'">
+                    <mat-form-field class="width">
+                      <input matInput placeholder="{{leadfields[i+2].label}}" *ngIf="leadfields[i+2].isRequired" formControlName="{{leadfields[i+2].alias}}">
+                    </mat-form-field>
+                  </div>
+                  <div *ngSwitchCase="'Select'">
+                    <mat-form-field class="width">
+                      <mat-select placeholder="{{leadfields[i+2].label}}" *ngIf="leadfields[i+2].isRequired" formControlName="{{leadfields[i+2].alias}}">
+                        <mat-option *ngFor="let option of leadfields[i+2].properties" value="{{option.value}}">{{option.label}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div *ngSwitchCase="'Date'">
+                    <mat-form-field class="width">
+                      <input matInput [matDatepicker]="picker" *ngIf="leadfields[i+2].isRequired" formControlName="{{leadfields[i+2].alias}}" placeholder="{{leadfields[i+2].label}}">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div *ngSwitchCase="'Boolean'">
+                    <span class="mat-subheading-1">{{leadfields[i+2].label}}</span><br />
+                    <mat-button-toggle-group #group="matButtonToggleGroup" *ngIf="leadfields[i+2].isRequired" formControlName="{{leadfields[i+2].alias}}">
+                      <mat-button-toggle value="left">
+                        No
+                      </mat-button-toggle>
+                      <mat-button-toggle value="right">
+                        Yes
+                      </mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                  <div *ngSwitchCase="'TriState'">
+                    <mat-checkbox *ngIf="leadfields[i+2].isRequired" formControlName="{{leadfields[i+2].alias}}">{{leadfields[i+2].label}}</mat-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="25" *ngIf="leadfields[i+3]">
+                <div [ngSwitch]="leadfields[i+3].type">
+                  <div *ngSwitchCase="'Text'">
+                    <mat-form-field class="width">
+                      <input matInput placeholder="{{leadfields[i+3].label}}" *ngIf="leadfields[i+3].isRequired" formControlName="{{leadfields[i+3].alias}}">
+                    </mat-form-field>
+                  </div>
+                  <div *ngSwitchCase="'Select'">
+                    <mat-form-field class="width">
+                      <mat-select placeholder="{{leadfields[i+3].label}}" *ngIf="leadfields[i+3].isRequired" formControlName="{{leadfields[i+3].alias}}">
+                        <mat-option *ngFor="let option of leadfields[i+3].properties" value="{{option.value}}">{{option.label}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div *ngSwitchCase="'Date'">
+                    <mat-form-field class="width">
+                      <input matInput [matDatepicker]="picker" *ngIf="leadfields[i+3].isRequired" formControlName="{{leadfields[i+3].alias}}" placeholder="{{leadfields[i+3].label}}">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div *ngSwitchCase="'Boolean'">
+                    <span class="mat-subheading-1">{{leadfields[i+3].label}}</span><br />
+                    <mat-button-toggle-group #group="matButtonToggleGroup" *ngIf="leadfields[i+3].isRequired" formControlName="{{leadfields[i+3].alias}}">
+                      <mat-button-toggle value="left">
+                        No
+                      </mat-button-toggle>
+                      <mat-button-toggle value="right">
+                        Yes
+                      </mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                  <div *ngSwitchCase="'TriState'">
+                    <mat-checkbox *ngIf="leadfields[i+3].isRequired" formControlName="{{leadfields[i+3].alias}}">{{leadfields[i+3].label}}</mat-checkbox>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </mat-card>
+  </div>
+</div>
